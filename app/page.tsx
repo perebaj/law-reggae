@@ -30,12 +30,6 @@ export default function Component() {
         <h1 className="text-2xl font-bold">Processos</h1>
         <div className="flex items-center space-x-2">
           <Button variant="outline" className="p-2">
-            <PrinterIcon className="h-5 w-5" />
-          </Button>
-          <Button variant="outline" className="p-2">
-            <DownloadIcon className="h-5 w-5" />
-          </Button>
-          <Button variant="outline" className="p-2">
             <RefreshCwIcon className="h-5 w-5" />
           </Button>
           <Button variant="default" className="p-2">
@@ -53,11 +47,6 @@ export default function Component() {
             <SelectItem value="inativos">Inativos</SelectItem>
           </SelectContent>
         </Select>
-        <Input
-          type="search"
-          placeholder="Digite algo para pesquisar"
-          className="flex-1"
-        />
       </div>
       <div className="mb-4 flex items-center justify-between">
         <span>15 de 15 processos e casos</span>
@@ -73,7 +62,7 @@ export default function Component() {
                 <Checkbox />
               </TableHead>
               <TableHead>Título</TableHead>
-              <TableHead>Cliente / Pasta</TableHead>
+              <TableHead>Cliente</TableHead>
               <TableHead>Ação / Foro</TableHead>
               <TableHead>Últ. Mov</TableHead>
             </TableRow>
