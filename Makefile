@@ -1,7 +1,7 @@
 ## Run the server locally
-.PHONY: local-server
-local-server:
-	npm run dev
+.PHONY: run
+run:
+	npx next dev
 
 ## Build the project and validate if there are any errors
 .PHONY: build
