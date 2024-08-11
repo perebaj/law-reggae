@@ -1,306 +1,129 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/MbWcmzrXE8M
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+"use client";
+import { motion } from "framer-motion";
+
+import Buymeacoffee from "@/components/coffee";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-import { Checkbox } from "@/components/ui/checkbox";
-
-export default function Component() {
+export default function Home() {
   return (
-    <div className="container mx-auto p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Processos</h1>
-        <div className="flex items-center space-x-2">
-          <Button variant="outline" className="p-2">
-            <RefreshCwIcon className="h-5 w-5" />
-          </Button>
-          <Button variant="default" className="p-2">
-            <PlusIcon className="h-5 w-5" />
-          </Button>
-        </div>
+    <div className="left-0 top-0 -z-10">
+      <div className="absolute top-0 z-[-2] bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:30px_30px]">
+        <header>
+          <nav className="mx-auto flex max-w-7xl items-center justify-center px-32 py-3 text-xl">
+            <span className="flex-1 text-2xl text-white">Blup</span>
+            <Buymeacoffee />
+            <div className="flex flex-1 justify-end">
+              <Button size={"lg"} className="text-lg text-white">
+                Login
+              </Button>
+            </div>
+          </nav>
+        </header>
+        <motion.div
+          initial={{ scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1.0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+        >
+          <section className="relative mx-auto flex max-w-7xl flex-col items-center p-8 pb-64 pt-64">
+            <h2 className="flex flex-col text-center text-7xl font-medium text-white">
+              A maneira mais fácil,{" "}
+              <span className="bg-gradient-to-r from-yellow-300 from-20% via-yellow-400 to-yellow-600 to-70% bg-clip-text pb-6 text-transparent">
+                De gerenciar todos os seus processos
+              </span>
+            </h2>
+            <span className="text-3xl font-light text-white">
+              Configure seu número OAB e Blup!
+            </span>
+          </section>
+        </motion.div>
+        <section id="faq">
+          <div className="mx-auto flex max-w-7xl flex-row gap-12 px-8 py-32">
+            <div className="flex basis-1/2 flex-col text-left">
+              <p className="mb-4 inline-block text-2xl font-semibold text-primary">
+                FAQ
+              </p>
+              <p className="text-3xl font-extrabold text-white">
+                Perguntas frequentes
+              </p>
+            </div>
+            <ul className="basis-1/2">
+              <Accordion type="single" collapsible className="text-lg">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="text-start font-bold text-primary">
+                    O que é o blup?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-lg text-white">
+                      A ferramenta mais simples para você gerenciar seus
+                      processos
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger className="text-start font-bold text-primary">
+                    Como eu começo?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-lg text-white">
+                      Simples, cadastre-se passando seu número OAB em poucos
+                      minutos, todos os seus processos estarão disponíveis para
+                      você.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger className="text-start font-bold text-primary">
+                    Para qual público o blup é destinado?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-lg text-white">
+                      Advogados, estagiários e estudantes de direito. Todos que
+                      querem diminuir sua carga de trabalho manual para se
+                      dedicar ao que realmente importa.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger className="text-start font-bold text-primary">
+                    Quanto custa o blup?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-lg text-white">
+                      O blup é gratuito para todos os usuários, sem limitações.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-5">
+                  <AccordionTrigger className="text-start font-bold text-primary">
+                    Quais integracoes o blup possui?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-lg text-white">
+                      Até o momento, integramos com ESAJ e PJE. Em breve, mais.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </ul>
+          </div>
+        </section>
+        <footer>
+          <div className="flex flex-col items-center justify-center pb-4 pt-8 text-sm">
+            <h4 className="text-lg text-white">Made with ❤️ by </h4>
+            <a
+              href="https://twitter.com/jj_neno"
+              className="text-white no-underline hover:underline"
+            >
+              J²
+            </a>
+          </div>
+        </footer>
       </div>
-      <div className="mb-4 flex items-center space-x-2">
-        <Select>
-          <SelectTrigger aria-label="Filter" className="px-3 py-2 text-sm">
-            <SelectValue placeholder="Ativos" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ativos">Ativos</SelectItem>
-            <SelectItem value="inativos">Inativos</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="mb-4 flex items-center justify-between">
-        <span>15 de 15 processos e casos</span>
-        <Button variant="outline" className="p-2">
-          <ListIcon className="h-5 w-5" />
-        </Button>
-      </div>
-      <Card>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-12">
-                <Checkbox />
-              </TableHead>
-              <TableHead>Título</TableHead>
-              <TableHead>Cliente</TableHead>
-              <TableHead>Ação / Foro</TableHead>
-              <TableHead>Últ. Mov</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {[
-              {
-                title: "Carlos Eduardo Gonzales Lobo x Hurb Technologies S A",
-                status: "Processo ativo",
-                code: "1009585-60.2024.8.26.0344",
-                client: "Carlos Eduardo Gonzales Lobo",
-                action: "Procedimento do Juizado Especial C\u00EDvel",
-                court: "Vara Do Juizado Especial C\u00EDvel",
-                date: "02/08/2024",
-              },
-              {
-                title:
-                  "Diego Pereira de Almeida x Salmour\u00E3o Urbanizadora Spe Ltda",
-                status: "Processo ativo",
-                code: "1002482-07.2024.8.26.0407",
-                client: "Diego Pereira de Almeida",
-                action:
-                  "Rescis\u00E3o do contrato e devolu\u00E7\u00E3o do dinheiro",
-                court: "2\u00AA Vara",
-                date: "02/08/2024",
-              },
-              {
-                title:
-                  "Graciele Cristina Campanari De Oliveira x Instituto Nacional Do Seguro Social Inss",
-                status: "Processo ativo",
-                code: "5001668-33.2024.4.03.6345",
-                client: "Graciele Cristina Campanari De Oliveira",
-                action: "Procedimento do Juizado Especial C\u00EDvel",
-                court: "1\u00AA Vara",
-                date: "02/08/2024",
-              },
-              {
-                title: "Elisa Regina Tanaka Pereira x Banco Pan Sa",
-                status: "Processo ativo",
-                code: "1010372-89.2024.8.26.0344",
-                client: "Elisa Regina Tanaka Pereira",
-                action: "Procedimento Comum C\u00EDvel",
-                court: "4\u00AA Vara C\u00EDvel",
-                date: "29/07/2024",
-              },
-              {
-                title: "Banco Bradesco Sa x Renato Sergio Serafim",
-                status: "Processo ativo",
-                code: "0001984-98.2019.8.26.0407",
-                client: "Banco Bradesco Sa",
-                action: "Contratos Banc\u00E1rios",
-                court: "2\u00AA Vara",
-                date: "23/07/2024",
-              },
-            ].map((caseInfo, index) => (
-              <TableRow key={index}>
-                <TableCell className="w-12">
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center space-x-2">
-                    <RssIcon className="h-5 w-5 text-blue-500" />
-                    <span className="font-medium">{caseInfo.title}</span>
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {caseInfo.status}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {caseInfo.code}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm">{caseInfo.client}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm">{caseInfo.action}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {caseInfo.court}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm">{caseInfo.date}</div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Card>
     </div>
-  );
-}
-
-function DownloadIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7 10 12 15 17 10" />
-      <line x1="12" x2="12" y1="15" y2="3" />
-    </svg>
-  );
-}
-
-function ListIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="8" x2="21" y1="6" y2="6" />
-      <line x1="8" x2="21" y1="12" y2="12" />
-      <line x1="8" x2="21" y1="18" y2="18" />
-      <line x1="3" x2="3.01" y1="6" y2="6" />
-      <line x1="3" x2="3.01" y1="12" y2="12" />
-      <line x1="3" x2="3.01" y1="18" y2="18" />
-    </svg>
-  );
-}
-
-function PlusIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
-    </svg>
-  );
-}
-
-function PrinterIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-      <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
-      <rect x="6" y="14" width="12" height="8" rx="1" />
-    </svg>
-  );
-}
-
-function RefreshCwIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-      <path d="M21 3v5h-5" />
-      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-      <path d="M8 16H3v5" />
-    </svg>
-  );
-}
-
-// function RssIcon(props: any) {
-//   return (
-//     <svg
-//       {...props}
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="24"
-//       height="24"
-//       viewBox="0 0 24 24"
-//       fill="none"
-//       stroke="currentColor"
-//       strokeWidth="2"
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//     >
-//       <path d="M4 11a9 9 0 0 1 9 9" />
-//       <path d="M4 4a16 16 0 0 1 16 16" />
-//       <circle cx="5" cy="19" r="1" />
-//     </svg>
-//   );
-// }
-
-function RssIcon(props: any) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      className="feather feather-bar-chart-2"
-    >
-      <line x1="18" y1="20" x2="18" y2="10"></line>
-      <line x1="12" y1="20" x2="12" y2="4"></line>
-      <line x1="6" y1="20" x2="6" y2="14"></line>
-    </svg>
   );
 }
