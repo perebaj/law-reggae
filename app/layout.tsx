@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 // import { Inter as FontSans } from "next/font/google";
 import { McLaren as Font } from "next/font/google";
-
+import {
+  ClerkProvider,
+  // SignInButton,
+  // SignedIn,
+  // SignedOut,
+  // UserButton
+} from "@clerk/nextjs";
 // const inter = Inter({ subsets: ["latin"] });
 import { cn } from "@/lib/utils";
 
@@ -22,15 +28,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          fontMono.className,
-          "bg-white-950 relative h-full w-full antialiased",
-        )}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={cn(
+            fontMono.className,
+            "bg-white-950 relative h-full w-full antialiased",
+          )}
+        >
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

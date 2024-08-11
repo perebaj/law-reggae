@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 export default function Home() {
   return (
     <div className="left-0 top-0 -z-10">
@@ -19,7 +20,8 @@ export default function Home() {
             <Buymeacoffee />
             <div className="flex flex-1 justify-end">
               <Button size={"lg"} className="text-lg text-white">
-                Login
+                {/* The first access point to an user is the process page */}
+                <Link href="/process">Entrar</Link>
               </Button>
             </div>
           </nav>
