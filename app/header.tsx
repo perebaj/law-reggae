@@ -75,16 +75,8 @@ export default function Header() {
               className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
               prefetch={false}
             >
-              <InfoIcon className="h-5 w-5" />
-              About
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
               <BoxIcon className="h-5 w-5" />
-              Products
+              Processos
             </Link>
             <Link
               href="#"
@@ -92,7 +84,7 @@ export default function Header() {
               prefetch={false}
             >
               <MailIcon className="h-5 w-5" />
-              Contact
+              Contato
             </Link>
           </nav>
         </SheetContent>

@@ -30,12 +30,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={cn(
-            fontMono.className,
-            "bg-white-950 relative h-full w-full antialiased",
-          )}
-        >
+        <body className={cn(fontMono.className, "bg-white-950 antialiased")}>
           {children}
         </body>
       </html>
