@@ -1,4 +1,3 @@
-import Header from "../header";
 import { Process, columns } from "./colums";
 import { DataTable } from "./data-table";
 
@@ -164,7 +163,6 @@ export default async function DemoPage() {
 
   return (
     <div>
-      <Header />
       <div className="container mx-auto py-10">
         <DataTable columns={columns} data={data} />
       </div>
