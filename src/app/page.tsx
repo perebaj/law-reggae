@@ -10,7 +10,11 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
+
 export default function Home() {
+  const { isSignedIn } = useAuth(); // Hook para verificar o estado de autenticação
+
   return (
     <div className="top-0 z-[-2] bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:30px_30px]">
       <header>
@@ -20,7 +24,7 @@ export default function Home() {
           <div className="flex flex-1 justify-end">
             <Button size={"lg"} className="text-lg text-white">
               {/* The first access point to an user is the process page */}
-              <Link href="/profile">Entrar</Link>
+              <Link href={isSignedIn ? "/process" : "/profile"}>Entrar</Link>
             </Button>
           </div>
         </nav>
