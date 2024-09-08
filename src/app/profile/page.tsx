@@ -68,7 +68,7 @@ export default function Page() {
               })}
             />
           </div>
-          <Button variant="secondary" disabled={isSubmitting}>
+          <Button variant="default" disabled={isSubmitting}>
             Adicionar
           </Button>
           <p className="text-sm">* Campo obrigatório</p>
