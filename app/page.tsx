@@ -32,9 +32,9 @@ export default function Home() {
       >
         <section className="relative mx-auto flex max-w-7xl flex-col items-center p-8 pb-64 pt-64">
           <h2 className="flex flex-col text-center text-7xl font-medium text-white">
-            A maneira mais fácil,{" "}
+            Um pouco de ordem,{" "}
             <span className="bg-gradient-to-r from-yellow-300 from-20% via-yellow-400 to-yellow-600 to-70% bg-clip-text pb-6 text-transparent">
-              De gerenciar todos os seus processos
+              para o caos jurídico.
             </span>
           </h2>
           <span className="text-3xl font-light text-white">
