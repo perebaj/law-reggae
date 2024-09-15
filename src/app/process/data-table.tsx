@@ -42,14 +42,20 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import SyncModal from "./SyncModal";
 
-interface DataTableProps<TData, TValue> {
+interface ProcessData {
+  process_id: string;
+  title: string;
+  // Add other fields as needed
+}
+
+interface DataTableProps<TData extends ProcessData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 import { RefreshCwIcon, PlusIcon } from "@/components/icons";
-
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends ProcessData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -61,7 +67,7 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const noRowSelected = Object.keys(rowSelection).length === 0;
+  const [isSyncModalOpen, setIsSyncModalOpen] = React.useState(false);
 
   const table = useReactTable({
     data,
@@ -84,6 +90,28 @@ export function DataTable<TData, TValue>({
     enableRowSelection: true,
   });
 
+  const selectedProcesses = React.useMemo(() => {
+    return Object.keys(rowSelection).map((index) => {
+      const row = table.getRow(index);
+      return {
+        process_id: row.original.process_id,
+        title: row.getValue("title") as string,
+      };
+    });
+  }, [rowSelection, table]);
+
+  const handleSync = () => {
+    setIsSyncModalOpen(true);
+    // Aqui você pode adicionar a lógica real de sincronização
+    // Por exemplo, uma chamada de API
+    setTimeout(() => {
+      setIsSyncModalOpen(false);
+      // Atualizar os dados da tabela após a sincronização
+    }, 3000); // Simula uma sincronização de 3 segundos
+  };
+
+  const noRowSelected = Object.keys(rowSelection).length === 0;
+
   return (
     <div className="w-full">
       <div className="mb-4 flex items-center justify-between">
@@ -93,16 +121,11 @@ export function DataTable<TData, TValue>({
             <Tooltip>
               <TooltipTrigger asChild>
                 <div>
-                  {" "}
-                  {/* Wrapper div to allow tooltip when button is disabled */}
                   <Button
                     variant="outline"
                     className="p-2"
                     disabled={noRowSelected}
-                    onClick={() => {
-                      // Add your refresh logic here
-                      console.log("Refreshing selected rows:", rowSelection);
-                    }}
+                    onClick={handleSync}
                   >
                     <RefreshCwIcon className="h-5 w-5" />
                   </Button>
@@ -110,7 +133,7 @@ export function DataTable<TData, TValue>({
               </TooltipTrigger>
               {noRowSelected && (
                 <TooltipContent>
-                  <p>Selecione uma linha para sincronizar os dados</p>
+                  <p>Selecione uma linha para sincronizar</p>
                 </TooltipContent>
               )}
             </Tooltip>
@@ -287,6 +310,11 @@ export function DataTable<TData, TValue>({
           </Button>
         </div>
       </div>
+      <SyncModal
+        isOpen={isSyncModalOpen}
+        onClose={() => setIsSyncModalOpen(false)}
+        selectedProcesses={selectedProcesses}
+      />
     </div>
   );
 }
