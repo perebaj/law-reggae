@@ -123,8 +123,9 @@ export function DataTable<TData extends ProcessData, TValue>({
     }, 3000); // Simula uma sincronização de 3 segundos
   };
 
+  const { toast } = useToast();
+
   const handleAddProcess = () => {
-    const { toast } = useToast();
     if (newProcessId.match(/^\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}$/)) {
       // Here you would typically call an API to add the process
       toast({
