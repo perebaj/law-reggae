@@ -19,7 +19,7 @@ export default function Home() {
     <div className="top-0 z-[-2] bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:30px_30px]">
       <header>
         <nav className="mx-auto flex max-w-7xl items-center justify-center px-32 py-3 text-xl">
-          <span className="flex-1 text-2xl text-white">Blup</span>
+          <span className="flex-1 text-2xl text-white">OpenLawBrasil</span>
           <Buymeacoffee />
           <div className="flex flex-1 justify-end">
             <Button size={"lg"} className="text-lg text-white">
@@ -41,9 +41,7 @@ export default function Home() {
               para o caos jurídico.
             </span>
           </h2>
-          <span className="text-3xl font-light text-white">
-            Configure seu número OAB e Blup!
-          </span>
+          ÷
         </section>
       </motion.div>
       <section id="faq">
@@ -60,11 +58,12 @@ export default function Home() {
             <Accordion type="single" collapsible className="text-lg">
               <AccordionItem value="item-1">
                 <AccordionTrigger className="text-start font-bold text-primary">
-                  O que é o blup?
+                  O que é a OpenLawBrasil?
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="text-lg text-white">
-                    A ferramenta mais simples para você gerenciar seus processos
+                    Gerencie todos os processos do seu escritório de forma
+                    simples e eficiente.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -82,7 +81,7 @@ export default function Home() {
               </AccordionItem>
               <AccordionItem value="item-3">
                 <AccordionTrigger className="text-start font-bold text-primary">
-                  Para qual público o blup é destinado?
+                  Para qual público o OpenLawBrasil é destinado?
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="text-lg text-white">
@@ -94,17 +93,18 @@ export default function Home() {
               </AccordionItem>
               <AccordionItem value="item-4">
                 <AccordionTrigger className="text-start font-bold text-primary">
-                  Quanto custa o blup?
+                  Quanto custa o OpenLawBrasil?
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="text-lg text-white">
-                    O blup é gratuito para todos os usuários, sem limitações.
+                    O OpenLawBrasil é gratuito para todos os usuários, sem
+                    limitações.
                   </p>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-5">
                 <AccordionTrigger className="text-start font-bold text-primary">
-                  Quais integracoes o blup possui?
+                  Quais integracoes o OpenLawBrasil possui?
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="text-lg text-white">

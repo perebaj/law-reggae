@@ -35,6 +35,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tooltip,
@@ -43,6 +51,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import SyncModal from "./SyncModal";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProcessData {
   process_id: string;
@@ -68,6 +78,8 @@ export function DataTable<TData extends ProcessData, TValue>({
   const [rowSelection, setRowSelection] = React.useState({});
 
   const [isSyncModalOpen, setIsSyncModalOpen] = React.useState(false);
+  const [isAddProcessOpen, setIsAddProcessOpen] = React.useState(false);
+  const [newProcessId, setNewProcessId] = React.useState("");
 
   const table = useReactTable({
     data,
@@ -111,6 +123,26 @@ export function DataTable<TData extends ProcessData, TValue>({
     }, 3000); // Simula uma sincronização de 3 segundos
   };
 
+  const handleAddProcess = () => {
+    const { toast } = useToast();
+    if (newProcessId.match(/^\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}$/)) {
+      // Here you would typically call an API to add the process
+      toast({
+        title: "Processo adicionado",
+        description: `Processo ${newProcessId} adicionado com sucesso.`,
+      });
+      setIsAddProcessOpen(false);
+      setNewProcessId("");
+    } else {
+      toast({
+        title: "Inválido ID de processo",
+        description:
+          "Por favor, insira um ID de processo válido. Exemplo: 5001668-33.2024.4.03.6345",
+        variant: "destructive",
+      });
+    }
+  };
+
   const noRowSelected = Object.keys(rowSelection).length === 0;
 
   return (
@@ -134,12 +166,17 @@ export function DataTable<TData extends ProcessData, TValue>({
               </TooltipTrigger>
               {noRowSelected && (
                 <TooltipContent>
-                  <p>Selecione uma linha para sincronizar</p>
+                  <p>Selecione um processo para sincronizar</p>
                 </TooltipContent>
               )}
             </Tooltip>
           </TooltipProvider>
-          <Button variant="default" className="p-2">
+          <Button
+            variant="default"
+            size="sm"
+            className="p-2"
+            onClick={() => setIsAddProcessOpen(true)}
+          >
             <PlusIcon className="h-5 w-5" />
           </Button>
         </div>
@@ -153,9 +190,6 @@ export function DataTable<TData extends ProcessData, TValue>({
           }
           className="max-w-sm"
         ></Input>
-        {/* <span className="flex items-center justify-between">
-            {table.getRowModel().rows?.length} de {data.length} processos.
-          </span> */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -182,7 +216,6 @@ export function DataTable<TData extends ProcessData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
-        {/* create a dropdown menu to filter using the status */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-2">
@@ -316,6 +349,33 @@ export function DataTable<TData extends ProcessData, TValue>({
         onClose={() => setIsSyncModalOpen(false)}
         selectedProcesses={selectedProcesses}
       />
+      <Dialog open={isAddProcessOpen} onOpenChange={setIsAddProcessOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Adicionar processo manualmente</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="process-id" className="text-right">
+                ID do processo
+              </Label>
+              <Input
+                id="process-id"
+                value={newProcessId}
+                onChange={(e) => setNewProcessId(e.target.value)}
+                placeholder="5001668-33.2024.4.03.6345"
+                className="col-span-3"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Obs: Por enquanto, só conseguimos coletar dados do ESAJ.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button onClick={handleAddProcess}>Adicionar Processo</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
