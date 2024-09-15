@@ -35,11 +35,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 import { RefreshCwIcon, PlusIcon } from "@/components/icons";
+
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -51,6 +60,8 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const noRowSelected = Object.keys(rowSelection).length === 0;
 
   const table = useReactTable({
     data,
@@ -70,6 +81,7 @@ export function DataTable<TData, TValue>({
       rowSelection,
     },
     filterFns: { customFilterFn },
+    enableRowSelection: true,
   });
 
   return (
@@ -77,9 +89,32 @@ export function DataTable<TData, TValue>({
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Processos</h1>
         <div className="flex items-center space-x-2">
-          <Button variant="outline" className="p-2">
-            <RefreshCwIcon className="h-5 w-5" />
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div>
+                  {" "}
+                  {/* Wrapper div to allow tooltip when button is disabled */}
+                  <Button
+                    variant="outline"
+                    className="p-2"
+                    disabled={noRowSelected}
+                    onClick={() => {
+                      // Add your refresh logic here
+                      console.log("Refreshing selected rows:", rowSelection);
+                    }}
+                  >
+                    <RefreshCwIcon className="h-5 w-5" />
+                  </Button>
+                </div>
+              </TooltipTrigger>
+              {noRowSelected && (
+                <TooltipContent>
+                  <p>Selecione uma linha para sincronizar os dados</p>
+                </TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
           <Button variant="default" className="p-2">
             <PlusIcon className="h-5 w-5" />
           </Button>
@@ -171,6 +206,15 @@ export function DataTable<TData, TValue>({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
+                <TableHead className="w-12">
+                  <Checkbox
+                    checked={table.getIsAllPageRowsSelected()}
+                    onCheckedChange={(value) =>
+                      table.toggleAllPageRowsSelected(!!value)
+                    }
+                    aria-label="Select all"
+                  />
+                </TableHead>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -193,6 +237,13 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
+                  <TableCell className="w-12">
+                    <Checkbox
+                      checked={row.getIsSelected()}
+                      onCheckedChange={(value) => row.toggleSelected(!!value)}
+                      aria-label="Select row"
+                    />
+                  </TableCell>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
