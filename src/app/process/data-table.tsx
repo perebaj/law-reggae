@@ -93,8 +93,9 @@ export function DataTable<TData extends ProcessData, TValue>({
   const selectedProcesses = React.useMemo(() => {
     return Object.keys(rowSelection).map((index) => {
       const row = table.getRow(index);
+
       return {
-        process_id: row.original.process_id,
+        process_id: row.original["process_id"] as string,
         title: row.getValue("title") as string,
       };
     });

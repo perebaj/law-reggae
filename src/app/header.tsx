@@ -5,18 +5,17 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
-import { UserButton } from "@clerk/nextjs";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+
+import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 
 export default function Header() {
   return (
     <header className="flex h-16 w-full shrink-0 items-center border-b bg-background px-4 md:px-6">
-      <Link href="#" className="mr-6 flex items-center" prefetch={false}>
-        <BallonIcon className="h-6 w-6" />
-        <span className="sr-only">Acme Inc</span>
-      </Link>
+      <Link href="#" className="mr-6 flex items-center" prefetch={false}></Link>
+      <OrganizationSwitcher />
       <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList>
           <NavigationMenuItem>

@@ -13,6 +13,8 @@ interface SyncModalProps {
   selectedProcesses: { process_id: string; title: string }[];
 }
 
+import { Badge } from "@/components/ui/badge";
+
 export default function SyncModal({
   isOpen,
   onClose,
@@ -34,11 +36,12 @@ export default function SyncModal({
             </h3>
             <ul className="list-inside list-disc">
               {selectedProcesses.map((process, index) => (
-                <React.Fragment key={index}>
-                  <li>
-                    {process.title} - {process.process_id}
-                  </li>
-                </React.Fragment>
+                <li key={index} className="">
+                  <span className="font-medium">{process.title}</span>
+                  <Badge variant="secondary" className="ml-2">
+                    {process.process_id}
+                  </Badge>
+                </li>
               ))}
             </ul>
           </div>
