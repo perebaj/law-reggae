@@ -51,12 +51,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import SyncModal from "./SyncModal";
-import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
+import { getAdminColumns } from "./adminColumns";
+import { useAuth } from "@clerk/nextjs";
 
 interface ProcessData {
   process_id: string;
   title: string;
+  assignedMember?: string;
   // Add other fields as needed
 }
 
@@ -69,6 +71,31 @@ export function DataTable<TData extends ProcessData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const { has, orgRole } = useAuth();
+
+  const isAdmin = orgRole === "org:admin";
+
+  const handleAssignMember = React.useCallback(
+    (processId: string, member: string) => {
+      console.log(`Assigning member ${member} to process ${processId}`);
+      // Here you would update your data source
+      // For now, let's just update the local data
+      const updatedData = data.map((process) =>
+        process.process_id === processId
+          ? { ...process, assignedMember: member }
+          : process,
+      );
+      // You would typically update this data in your backend and then refetch
+      console.log("Updated data:", updatedData);
+    },
+    [data],
+  );
+
+  const allColumns = React.useMemo(() => {
+    const adminColumns = getAdminColumns<TData>(isAdmin, handleAssignMember);
+    return [...columns, ...adminColumns];
+  }, [columns, isAdmin, handleAssignMember]);
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -83,7 +110,7 @@ export function DataTable<TData extends ProcessData, TValue>({
 
   const table = useReactTable({
     data,
-    columns,
+    columns: allColumns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -273,18 +300,16 @@ export function DataTable<TData extends ProcessData, TValue>({
                     aria-label="Select all"
                   />
                 </TableHead>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -315,7 +340,7 @@ export function DataTable<TData extends ProcessData, TValue>({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={allColumns.length}
                   className="h-24 text-center"
                 >
                   No results.

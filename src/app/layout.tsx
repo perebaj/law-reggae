@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { cn } from "@/lib/utils";
 import HeaderWrapper from "./HeaderWrapper";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontMono = Font({
   weight: "400",
@@ -24,6 +25,7 @@ export default function RootLayout({
         <body className={cn(fontMono.className, "bg-white-950 antialiased")}>
           <HeaderWrapper userId={userId} />
           {children}
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
